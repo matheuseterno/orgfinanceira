@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Table(name = "receitas")
 @Entity
@@ -16,20 +16,40 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Receita {
+
     @Id
     @GeneratedValue
     private Integer id;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
     private String titulo;
     private String descricao;
     private Double valor;
-    private Date dataReceita;
+    private LocalDateTime dataReceita;
     private String metodoRecebimento;
     private boolean recorrente;
     private boolean recebido;
-    private Date dataCriado;
-    private Date dataModificado;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime dataCriado;
+
+    private LocalDateTime dataModificado;
+
+    @PrePersist
+    protected void onCreate(){
+        this.dataCriado = LocalDateTime.now();
+        this.dataModificado = LocalDateTime.now();
+        if(this.dataReceita == null){
+            dataReceita = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        this.dataModificado = LocalDateTime.now();
+    }
 }
 
