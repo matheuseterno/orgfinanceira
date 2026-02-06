@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Receita {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne

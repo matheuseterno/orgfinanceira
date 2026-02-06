@@ -23,20 +23,20 @@ public class DespesaService {
     private DespesasRepository despesasRepository;
 
     public Despesa criaDespesa(DespesaResquestDTO data){
-        Despesa novaDespesa = new Despesa();
+        Despesa despesa = new Despesa();
 
         Usuario usuario = usuariosRepository.findById(data.usuarioId()).orElseThrow(()-> new RuntimeException("Usuário não encontrado"));
 
-        novaDespesa.setUsuario(usuario);
-        novaDespesa.setTitulo(data.titulo());
-        novaDespesa.setDescricao(data.descricao());
-        novaDespesa.setValor(data.valor());
-        novaDespesa.setRecorrente(data.recorrente());
-        novaDespesa.setPago(data.pago());
-        novaDespesa.setMetodoPagamento(data.MetodoPagamento());
+        despesa.setUsuario(usuario);
+        despesa.setTitulo(data.titulo());
+        despesa.setDescricao(data.descricao());
+        despesa.setValor(data.valor());
+        despesa.setRecorrente(data.recorrente());
+        despesa.setPago(data.pago());
+        despesa.setMetodoPagamento(data.metodoPagamento());
         if(data.dataDespesa() != null){
-            novaDespesa.setDataDespesa(LocalDateTime.ofInstant(Instant.ofEpochMilli(data.dataDespesa()), ZoneId.systemDefault()));
+            despesa.setDataDespesa(LocalDateTime.ofInstant(Instant.ofEpochMilli(data.dataDespesa()), ZoneId.systemDefault()));
         }
-        return despesasRepository.save(novaDespesa);
+        return despesasRepository.save(despesa);
     }
 }
