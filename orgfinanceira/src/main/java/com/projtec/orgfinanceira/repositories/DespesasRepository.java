@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface DespesasRepository extends JpaRepository<Despesa, Integer> {
     List<Despesa> findByUsuarioId(Integer usuarioId);
-
 }

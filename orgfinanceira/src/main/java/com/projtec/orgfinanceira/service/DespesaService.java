@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DespesaService {
@@ -55,5 +56,10 @@ public class DespesaService {
                         despesa.isPago()
                 ))
                 .toList();
+    }
+
+    public List<DespesaResponseDTO> listarPorTelefone(String telefone) {
+        Usuario usuario = usuariosRepository.findByTelefone(telefone).orElseThrow(() -> new RuntimeException("Usuário não encontrado para o telefone informado."));
+        return this.listarPorUsuario(usuario.getId());
     }
 }

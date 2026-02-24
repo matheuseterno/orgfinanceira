@@ -21,6 +21,7 @@ public class Usuario {
     private Integer id;
     private String nome;
     private String email;
+    private String telefone;
     private String senha;
     private Date dataCriado;
     private Date dataModificado;

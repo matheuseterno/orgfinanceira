@@ -29,4 +29,9 @@ public class DespesaController {
         return ResponseEntity.ok(despesas);
     }
 
+    @GetMapping("/telefone/{telefone}")
+    public ResponseEntity<List<DespesaResponseDTO>> getByTelefone(@PathVariable String telefone) {
+        List<DespesaResponseDTO> despesas = this.despesaService.listarPorTelefone(telefone);
+        return ResponseEntity.ok(despesas);
+    }
 }
