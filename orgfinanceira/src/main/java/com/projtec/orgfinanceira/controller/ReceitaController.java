@@ -1,5 +1,6 @@
 package com.projtec.orgfinanceira.controller;
 
+import com.projtec.orgfinanceira.domain.despesas.DespesaResponseDTO;
 import com.projtec.orgfinanceira.domain.receitas.Receita;
 import com.projtec.orgfinanceira.domain.receitas.ReceitaRequestDTO;
 import com.projtec.orgfinanceira.domain.receitas.ReceitaResponseDTO;
@@ -27,5 +28,11 @@ public class ReceitaController {
     public ResponseEntity<List<ReceitaResponseDTO>> getByUsuario (@PathVariable Integer id){
         List<ReceitaResponseDTO> receita = this.receitaService.listarPorUsuario(id);
         return ResponseEntity.ok(receita);
+    }
+
+    @GetMapping("/telefone/{telefone}")
+    public ResponseEntity<List<ReceitaResponseDTO>> getByTelefone(@PathVariable String telefone) {
+        List<ReceitaResponseDTO> despesas = this.receitaService.listarPorTelefone(telefone);
+        return ResponseEntity.ok(despesas);
     }
 }

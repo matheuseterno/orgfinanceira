@@ -1,5 +1,6 @@
 package com.projtec.orgfinanceira.service;
 
+import com.projtec.orgfinanceira.domain.despesas.DespesaResponseDTO;
 import com.projtec.orgfinanceira.domain.receitas.Receita;
 import com.projtec.orgfinanceira.domain.receitas.ReceitaRequestDTO;
 import com.projtec.orgfinanceira.domain.receitas.ReceitaResponseDTO;
@@ -56,5 +57,10 @@ public class ReceitaService {
                         receita.isRecebido()
                 ))
                 .toList();
+    }
+
+    public List<ReceitaResponseDTO> listarPorTelefone(String telefone) {
+        Usuario usuario = usuariosRepository.findByTelefone(telefone).orElseThrow(() -> new RuntimeException("Usuário não encontrado para o telefone informado."));
+        return this.listarPorUsuario(usuario.getId());
     }
 }
