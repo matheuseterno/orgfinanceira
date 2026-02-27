@@ -19,7 +19,16 @@ public class DespesaController {
 
     @PostMapping
     public ResponseEntity<Despesa> create (@RequestBody DespesaRequestDTO body){
-        Despesa despesa = this.despesaService.criaDespesa(body);
+        Despesa despesa = this.despesaService.criarDespesa(body);
+        return ResponseEntity.status(201).body(despesa);
+    }
+
+    @PostMapping("/telefone/{telefone}")
+    public ResponseEntity<Despesa> criaDespesaPorTelefone(
+            @PathVariable String telefone,
+            @RequestBody DespesaRequestDTO body) {
+
+        Despesa despesa = this.despesaService.criarDespesaPorTelefone(telefone, body);
         return ResponseEntity.status(201).body(despesa);
     }
 

@@ -24,7 +24,7 @@ public class DespesaService {
     @Autowired
     private DespesasRepository despesasRepository;
 
-    public Despesa criaDespesa(DespesaRequestDTO data){
+    public Despesa criarDespesa(DespesaRequestDTO data){
         Despesa despesa = new Despesa();
 
         Usuario usuario = usuariosRepository.findById(data.usuarioId()).orElseThrow(()-> new RuntimeException("Usuário não encontrado"));
@@ -40,6 +40,23 @@ public class DespesaService {
             despesa.setDataDespesa(LocalDateTime.ofInstant(Instant.ofEpochMilli(data.dataDespesa()), ZoneId.systemDefault()));
         }
         return despesasRepository.save(despesa);
+    }
+
+    public Despesa criarDespesaPorTelefone(String telefone, DespesaRequestDTO data){
+
+        Usuario usuario = usuariosRepository.findByTelefone(telefone).orElseThrow(()->new RuntimeException("Usuário não encontrado para este telefone"));
+        DespesaRequestDTO despesa = new DespesaRequestDTO(
+                usuario.getId(),
+                data.titulo(),
+                data.descricao(),
+                data.valor(),
+                data.dataDespesa(),
+                data.metodoPagamento(),
+                data.recorrente(),
+                data.pago()
+        );
+
+        return this.criarDespesa(despesa);
     }
 
     public List<DespesaResponseDTO> listarPorUsuario(Integer usuarioId){

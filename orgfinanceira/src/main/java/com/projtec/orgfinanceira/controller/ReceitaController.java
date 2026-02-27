@@ -1,5 +1,7 @@
 package com.projtec.orgfinanceira.controller;
 
+import com.projtec.orgfinanceira.domain.despesas.Despesa;
+import com.projtec.orgfinanceira.domain.despesas.DespesaRequestDTO;
 import com.projtec.orgfinanceira.domain.despesas.DespesaResponseDTO;
 import com.projtec.orgfinanceira.domain.receitas.Receita;
 import com.projtec.orgfinanceira.domain.receitas.ReceitaRequestDTO;
@@ -21,6 +23,15 @@ public class ReceitaController {
     @PostMapping
     public ResponseEntity<Receita> create(@RequestBody ReceitaRequestDTO body){
         Receita receita = receitaService.criaReceita(body);
+        return ResponseEntity.status(201).body(receita);
+    }
+
+    @PostMapping("/telefone/{telefone}")
+    public ResponseEntity<Receita> criaReceitaPorTelefone(
+            @PathVariable String telefone,
+            @RequestBody ReceitaRequestDTO body) {
+
+        Receita receita = this.receitaService.criarReceitaPorTelefone(telefone, body);
         return ResponseEntity.status(201).body(receita);
     }
 
